@@ -1,0 +1,42 @@
+{
+    "name": "Max! radiator",
+    "author": "JPL",
+    "description": "Representation of a Max! radiator from eq3.",
+    "settings": [
+        {
+            "type": "string",
+            "id": "max_name",
+            "label": "Radiator name",
+            "default": "Radiator"
+        },
+        {
+            "type": "item",
+            "id": "max_battery",
+            "label": "Battery status",
+            "default": ""
+        },
+        {
+            "type": "item",
+            "id": "max_mode",
+            "label": "Op. mode",
+            "description": "Operational mode: auto, manual, boost, etc."
+        },
+        {
+            "type": "item",
+            "id": "max_temp_actual",
+            "label": "Temp. measured"
+        },
+        {
+            "type": "item",
+            "id": "max_temp_set",
+            "label": "Temp. setting",
+            "default": ""
+        },
+        {
+            "type": "item",
+            "id": "max_valve_aperture",
+            "label": "Valve aperture"
+        }
+    ],
+    "template": "<div class=\"row\">\n  <div class=\"col-xs-12\"><span style=\"font-size: 16pt\">{{config.max_name}}</span></div>\n</div>\n\n<div class=\"row\">\n  <div class=\"col-xs-6\" uib-dropdown>\n    <button id=\"max-set-temp\" type=\"button\" class=\"btn btn-primary\" uib-dropdown-toggle>\n      <span><widget-icon iconset=\"'smarthome-set'\" icon=\"'temperature'\" /></span>Set point\n      <span class=\"caret\"></span>\n    </button>\n    <ul class=\"dropdown-menu\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"max-set-temp\">\n      <li role=\"menuitem\"><a ng-click=\"sendCmd(config.max_temp_set, '21')\">Normal (21 °C)</a></li>\n      <li role=\"menuitem\"><a ng-click=\"sendCmd(config.max_temp_set, '18')\">Energy saving (18 °C)</a></li>\n      <li class=\"divider\"></li>\n      <li role=\"menuitem\"><a ng-click=\"sendCmd(config.max_temp_set, '5')\">Minimum (5 °C)</a></li>\n      <li role=\"menuitem\"><a ng-click=\"sendCmd(config.max_temp_set, '4,5')\">Disconnect</a></li>\n    </ul>\n  </div>\n  <div class=\"col-xs-6\"><span><widget-icon iconset=\"'smarthome-set'\" icon=\"'thermostat'\" /></span>Aperture</div>\n</div>\n\n\n<div class=\"row\">\n  <div class=\"col-xs-6\"><span style=\"color: red; font-size: 16pt\">{{itemValue(config.max_temp_set)}}<small style=\"font-size:8pt\">°C</small></span></div>\n  <div class=\"col-xs-6\"><span style=\"color: cyan; font-size: 16pt\">{{itemValue(config.max_valve_aperture)}}<small style=\"font-size:8pt\"></small></span></div>\n</div>\n\n\n<table class=\"table\">\n  <tr>\n    <td class=\"text-left\" uib-dropdown>\n      <button id=\"max-set-mode\" type=\"button\" class=\"btn btn-primary\" uib-dropdown-toggle>\n        Mode:\n        <span class=\"caret\"></span>\n      </button>\n      <ul class=\"dropdown-menu\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"max-set-mode\">\n        <li role=\"menuitem\"><a ng-click=\"sendCmd(config.max_mode, 'AUTO-MODE')\">Auto</a></li>\n        <li role=\"menuitem\"><a ng-click=\"sendCmd(config.max_mode, 'MANU-MODE')\">Manual</a></li>\n        <li class=\"divider\"></li>\n        <li role=\"menuitem\"><a ng-click=\"sendCmd(config.max_mode, 'BOOST-MODE')\">Boost</a></li>\n        <li class=\"divider\"></li>\n        <li role=\"menuitem\"><a ng-click=\"sendCmd(config.max_mode, 'PARTY-MODE')\">Vacation</a></li>\n      </ul>\n    </td>\n    <td class=\"text-left\"><strong>{{itemValue(config.max_mode)=='AUTO-MODE'?'Auto':(itemValue(config.max_mode)=='MANU-MODE'?'Manual':(itemValue(config.max_mode)=='BOOST-MODE'?'Boost':'Vacation'))}}</strong></td>\n  </tr>\n  <tr>\n    <td class=\"text-left\"><strong>{{itemValue(config.max_temp_actual)}} °C</strong></td>\n    <td class=\"text-right\"><span style=\"color: {{itemValue(config.max_battery)=='OFF'?'green':'red'}}\"><strong>{{itemValue(config.max_battery)=='OFF'?'Batt. OK':'Replace batt.'}}</strong></span></td>\n  </tr>\n</table>\n"
+}
